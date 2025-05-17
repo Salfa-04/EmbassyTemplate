@@ -15,7 +15,7 @@ cp /path/to/directory -r /path/to/project
 然后重命名目录内的示例：
 
 ```bash
-mv /path/to/project/example -r /path/to/project/somename
+mv /path/to/project/example -r /path/to/project/temporary
 ```
 
 ### 修改配置字段
@@ -23,7 +23,8 @@ mv /path/to/project/example -r /path/to/project/somename
 在使用示例之前，您需要修改以下文件中的关键字段：
 
 1. 在 `Cargo.toml` 中：
-    - 将 `<NAME>` 修改为该文件所在目录的命名 : 如 `project`
+    - 将 `<NAME>` 修改为该文件所在目录的命名 : 如 `temporary`
+    - 将 `<CHIP>` 修改为目标芯片 : 如 `stm32g473cb`
 
 2. 在 `config.toml` 中：
     - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
@@ -35,3 +36,5 @@ mv /path/to/project/example -r /path/to/project/somename
 4. 在 `launch.json` 中：
     - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
     - 将 `<TARGET_TRIPLE>` 修改目标平台的三元组 : 如 `thumbv7em-none-eabihf`
+
+5. 修改 `memory.x`，或删除并为 `embassy-stm32` 添加 "memory-x" Feature

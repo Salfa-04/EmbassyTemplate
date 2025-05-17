@@ -6,13 +6,14 @@
 use defmt_rtt as _;
 use panic_probe as _;
 
-pub use binding::IntRqst;
+pub use bindit::IntRqst;
 pub use init::sys_init;
 
-mod binding;
+mod bindit;
 mod init;
 mod macros;
 
+pub mod clink;
 pub mod prelude {
     pub use ::bitfield_struct::bitfield; // Bitfield
     pub use ::cortex_m as ll; // Low Level
@@ -25,5 +26,5 @@ pub mod prelude {
 
 #[::defmt::panic_handler]
 fn soft_panic() -> ! {
-    panic_probe::hard_fault()
+    ::panic_probe::hard_fault()
 }

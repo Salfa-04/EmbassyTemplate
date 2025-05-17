@@ -1,5 +1,6 @@
 [package]
-name = "<NAME>"
+name  = "<NAME>"
+build = "build.rs"
 
 version.workspace = true
 edition.workspace = true
@@ -25,3 +26,7 @@ embassy-time.workspace     = true
 embassy-sync.workspace     = true
 embedded-io.workspace      = true
 embassy-stm32.workspace    = true
+
+
+[build-dependencies]
+cc = { version = "1.2", features = ["parallel"] }
