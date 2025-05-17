@@ -26,15 +26,15 @@ mv /path/to/project/example -r /path/to/project/temporary
     - 将 `<NAME>` 修改为该文件所在目录的命名 : 如 `temporary`
     - 将 `<CHIP>` 修改为目标芯片 : 如 `stm32g473cb`
 
-2. 在 `config.toml` 中：
+2. 在 `.cargo/config.toml` 中：
     - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
     - 将 `<TARGET_TRIPLE>` 修改目标平台的三元组 : 如 `thumbv7em-none-eabihf`
 
-3. 在 `openocd.cfg` 中：
+3. 在 `example/openocd.cfg` 中：
     - 将 `<CHIP>` 修改为目标芯片所代表的配置文件 : 如 `stm32g4x`
 
-4. 在 `launch.json` 中：
+4. 在 `example/.vscode/launch.json` 中：
     - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
     - 将 `<TARGET_TRIPLE>` 修改目标平台的三元组 : 如 `thumbv7em-none-eabihf`
 
-5. 修改 `memory.x`，或删除并为 `embassy-stm32` 添加 "memory-x" Feature
+5. 修改 `memory.x`，或删除并为 `embassy-stm32` 添加 `memory-x` Feature
