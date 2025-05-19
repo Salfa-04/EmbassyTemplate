@@ -30,10 +30,10 @@ SECTIONS {
     .dsram (NOLOAD) : ALIGN(4) {
         *(.dsram .dsram.*);
         . = ALIGN(4);
-} > DSRAM
+    } > DSRAM
 
     .sram2 (NOLOAD) : ALIGN(4) {
         *(.sram2 .sram2.*);
         . = ALIGN(4);
     } > SRAM2
-};
+}
