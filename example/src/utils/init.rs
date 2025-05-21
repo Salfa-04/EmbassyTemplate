@@ -3,7 +3,7 @@
 //!
 //! ## Reserved
 //!
-//!  (for stm32g473cbt9)
+//!  (for stm32g473cbt6)
 //! - PF0, PF1   for OSC
 //! - PC14, PC15 for OSC32
 //! - PA13, PA14 for SWD

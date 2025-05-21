@@ -26,7 +26,6 @@ release.lto   = true
 defmt           = "1.0"
 defmt-rtt       = "1.0"
 bitfield-struct = "0.11"
-static_cell     = "2.1"
 embassy-sync    = "0.6"
 
 embedded-io  = { version = "0.6", features = ["defmt-03"] }

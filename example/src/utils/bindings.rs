@@ -1,4 +1,11 @@
-pub use core::ffi::*;
+use hal::{bind_interrupts, peripherals};
+use {crate::hal, core::ffi::*};
+
+bind_interrupts! {
+    pub struct IntRqst {
+        USART1 => hal::usart::InterruptHandler<peripherals::USART1>;
+    }
+}
 
 #[link(name = "math", kind = "static")]
 unsafe extern "C" {
