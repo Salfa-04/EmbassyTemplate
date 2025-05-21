@@ -16,6 +16,10 @@ use crate::hal::{init, Config};
 pub fn sys_init() -> (embassy_stm32::Peripherals,) {
     defmt::debug!("System Initialization...");
 
+    if cortex_m::singleton!(:()=()).is_none() {
+        panic!("sys_init(): Can Be Called Only Once!!!");
+    }
+
     let peripherals = {
         let mut config = Config::default();
         let _rcc = &mut config.rcc;
