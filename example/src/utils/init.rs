@@ -17,7 +17,7 @@ pub fn sys_init() -> (embassy_stm32::Peripherals,) {
     defmt::debug!("System Initialization...");
 
     if cortex_m::singleton!(:()=()).is_none() {
-        panic!("sys_init(): Can Be Called Only Once!!!");
+        panic!("{}: Can Be Called Only Once!!!", file!());
     }
 
     let peripherals = {
