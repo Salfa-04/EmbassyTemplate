@@ -7,5 +7,5 @@
 pub mod blinky {
     mod led_task;
 
-    pub use led_task::led_task;
+    pub use led_task::task;
 }
