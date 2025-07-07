@@ -8,9 +8,11 @@ use ::panic_probe as _;
 
 pub mod bindings;
 pub use init::sys_init;
+pub use irq::IRQ;
 
 mod init;
 mod macros;
+mod irq;
 
 pub mod prelude {
     pub use ::bitfield_struct::bitfield; // Bitfield

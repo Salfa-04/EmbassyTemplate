@@ -22,7 +22,7 @@ pub fn sys_init() -> (embassy_stm32::Peripherals,) {
 
     let peripherals = {
         let mut config = Config::default();
-        let _rcc = &mut config.rcc;
+        let rcc = &mut config.rcc;
 
         init(config) // SysClock = xMHz
     };

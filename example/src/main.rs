@@ -12,6 +12,7 @@ async fn entry(s: embassy_executor::Spawner) {
     let (p,) = utils::sys_init();
 
     {
+        use hal::gpio::Pin;
         let p = (p.PC13.degrade(),);
         s.must_spawn(tasks::blinky::led_task(p));
     }
