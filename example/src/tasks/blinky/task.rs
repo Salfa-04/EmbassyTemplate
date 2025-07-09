@@ -2,8 +2,7 @@
 //! # LED Task
 //!
 
-use crate::{hal, init_ticker};
-use hal::{gpio, peripherals};
+use crate::{hal::gpio, init_ticker};
 
 use gpio::{AnyPin, Level, Output as OP, Speed};
 

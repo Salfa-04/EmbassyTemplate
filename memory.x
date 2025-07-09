@@ -24,11 +24,6 @@ SECTIONS {
         . = ALIGN(4);
     } > CSRAM
 
-    .dsram (NOLOAD) : ALIGN(4) {
-        *(.dsram .dsram.*);
-        . = ALIGN(4);
-    } > DSRAM
-
     .sram2 (NOLOAD) : ALIGN(4) {
         *(.sram2 .sram2.*);
         . = ALIGN(4);
