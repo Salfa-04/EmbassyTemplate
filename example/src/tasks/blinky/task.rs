@@ -15,7 +15,7 @@ pub async fn task(p: (IWDG, AnyPin)) -> ! {
     let mut led = OP::new(p.1, Level::Low, Speed::Low);
     let mut dog = Dog::new(p.0, 200_000); // 200ms
 
-    dog.unleash(); // Start the WatchDog
+    // dog.unleash(); // Start the WatchDog
 
     loop {
         (led.toggle(), dog.pet());

@@ -18,8 +18,8 @@ features = ["defmt", "time-driver-any", "<CHIP>"]
 
 
 [profile]
-release.debug = true
-release.lto   = true
+# release.debug = true
+release.lto = true
 
 
 [workspace.dependencies]
