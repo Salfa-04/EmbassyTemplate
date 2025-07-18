@@ -1,4 +1,4 @@
-use {crate::hal, core::ffi::*};
+use {super::prelude::hal, core::ffi::*};
 
 // #[link(name = "math", kind = "static")]
 // unsafe extern "C" {

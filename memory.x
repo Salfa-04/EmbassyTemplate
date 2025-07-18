@@ -2,7 +2,7 @@ MEMORY
 {
     /* FLASH and RAM are mandatory memory regions */
 
-    /* STM32G473xB   */
+    /* STM32G473xB   DBANK = 0 */
     FLASH  : ORIGIN = 0x08000000, LENGTH = 128K
 
     /* SRAM */

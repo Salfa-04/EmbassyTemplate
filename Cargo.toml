@@ -18,27 +18,26 @@ features = ["defmt", "time-driver-any", "<CHIP>"]
 
 
 [profile]
-# release.debug = true
-release.lto = true
+release.lto   = true
+release.strip = "debuginfo"
 
 
 [workspace.dependencies]
-defmt           = "1.0"
-defmt-rtt       = "1.0"
-bitfield-struct = "0.11"
-embassy-sync    = "0.7"
 
-embedded-io  = { version = "0.6", features = ["defmt-03"] }
+defmt-rtt    = { version = "1.0", features = ["disable-blocking-mode"] }
+defmt        = { version = "1.0", features = ["encoding-rzcobs", "ip_in_core"] }
 panic-probe  = { version = "1.0", features = ["print-defmt"] }
-cortex-m-rt  = { version = "0.7", features = ["device"] }
-embassy-time = { version = "0.4", features = ["tick-hz-32_768"] }
+cortex-m-rt  = { version = "0.7", features = ["device", "zero-init-ram"] }
+embassy-time = { version = "0.4", features = ["defmt", "tick-hz-32_768"] }
+embassy-sync = { version = "0.7", features = ["defmt"] }
+
 
 [workspace.dependencies.cortex-m]
 version  = "0.7"
 features = ["critical-section-single-core", "linker-plugin-lto"]
 [workspace.dependencies.embassy-executor]
 version  = "0.7"
-features = ["arch-cortex-m", "executor-thread"]
+features = ["arch-cortex-m", "executor-thread", "executor-interrupt", "defmt"]
 
 
 [profile.dev.package]
@@ -47,3 +46,4 @@ cortex-m-rt.opt-level      = 3
 embassy-executor.opt-level = 3
 embassy-time.opt-level     = 3
 embassy-stm32.opt-level    = 3
+defmt.opt-level            = 3

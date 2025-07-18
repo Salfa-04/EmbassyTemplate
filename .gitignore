@@ -1,3 +1,7 @@
+/build.map
+/*/build.map
+/*/*/build.map
+
 /Cargo.lock
 /*/Cargo.lock
 /*/*/Cargo.lock

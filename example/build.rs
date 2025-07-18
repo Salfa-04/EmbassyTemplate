@@ -1,5 +1,11 @@
+//!
+//!  To Download with OpenOCD:
+//! openocd -f openocd.cfg -c "program ../path/to/elf preverify reset exit"
+//!
+
 fn main() {
     cargo_emit::rerun_if_changed!("build.rs");
+    cargo_emit::rerun_if_changed!("build.map");
     cargo_emit::rerun_if_changed!("interfaces");
 
     // Output the build map file   : This is useful for analysis.

@@ -1,11 +1,11 @@
 #![no_std]
 #![no_main]
 
+use utils::init_ticker;
 use utils::prelude::*;
 
 mod controller;
 mod tasks;
-mod utils;
 
 #[embassy_executor::main]
 async fn entry(s: embassy_executor::Spawner) {
