@@ -1,4 +1,4 @@
-use super::prelude::hal::{bind_interrupts, peripherals};
+use super::prelude::hal::{self, bind_interrupts, peripherals};
 
 bind_interrupts! {
     pub struct IRQ {
