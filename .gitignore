@@ -10,6 +10,9 @@
 /*/cfg.toml
 /*/*/cfg.toml
 
+/*/openocd.cfg
+/*/*/openocd.cfg
+
 /target/
 /*/target/
 /*/*/target/

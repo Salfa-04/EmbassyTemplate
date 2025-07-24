@@ -47,7 +47,7 @@ mv /path/to/project/example -r /path/to/project/temporary
 
 在 `.cargo/config.toml` 中，修改 `runner` 中的 `attach` 为 `run`
 
-然后执行：
+使用 `Probe-rs` 下载：
 
 ```bash
 cargo run # in debug
@@ -55,9 +55,7 @@ cargo run # in debug
 cargo rr # in release
 ```
 
-### 使用 `OpenOCD`工具
-
-执行：
+使用 `OpenOCD` 下载：
 
 ```bash
 cargo b && openocd # in debug
@@ -65,5 +63,5 @@ cargo b && openocd # in debug
 cargo br && openocd # in release
 
 # Attach
-cargo rr
+cargo rr # or `cargo r` in debug
 ```

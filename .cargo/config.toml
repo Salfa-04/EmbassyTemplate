@@ -33,7 +33,7 @@ rustflags = [
 runner = [
     "probe-rs",
     # `attach` or `run`
-    "attach",
+    "run",
     "--preverify",
     "--no-location",
     "--no-catch-reset",
