@@ -19,7 +19,7 @@ path = "helper/mod.rs"
 
 [dependencies]
 
-embedded-io = "0.6"
+embedded-io-async = "0.6"
 
 
 defmt.workspace            = true

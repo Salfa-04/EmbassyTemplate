@@ -37,7 +37,7 @@
             "interface": "swd",
             "executable": "../target/<TARGET_TRIPLE>/debug/${fileWorkspaceFolderBasename}",
             "configFiles": [
-                "${workspaceRoot}/openocd.cfg"
+                "${workspaceRoot}/../openocd.cfg"
             ],
             "liveWatch": {
                 "enabled": true,

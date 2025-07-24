@@ -1,17 +1,59 @@
 //!
-//!  To Download with OpenOCD:
-//! openocd -f openocd.cfg -c "program ../path/to/elf preverify reset exit"
+//!  To Download with  OpenOCD:
+//! ```
+//! $ cargo br && openocd
+//! ```
 //!
 
-fn main() {
+use std::env::var;
+use std::fs::write;
+use std::path::PathBuf;
+
+fn main() -> std::io::Result<()> {
     cargo_emit::rerun_if_changed!("build.rs");
     cargo_emit::rerun_if_changed!("build.map");
     cargo_emit::rerun_if_changed!("interfaces");
 
-    // Output the build map file   : This is useful for analysis.
-    cargo_emit::rustc_link_arg!(format!("-Map={}/build.map", env!("CARGO_PKG_NAME")));
+    let package = env!("CARGO_PKG_NAME");
 
-    // cc::Build::new()
-    //     .file("interfaces/libmath.c")
-    //     .compile("math")
+    // Output the build.map file   : This is useful for analysis.
+    cargo_emit::rustc_link_arg!(format!("-Map={}/build.map", package));
+
+    write_openocd_flash_file(package)?;
+
+    Ok(())
+}
+
+///
+/// Writes the OpenOCD flash configuration file.
+///
+/// # Usage
+///
+/// ```
+/// $ cargo br && openocd && cargo rr
+/// // or
+/// $ cargo b && openocd && cargo r
+/// ```
+///
+fn write_openocd_flash_file(name: &str) -> std::io::Result<()> {
+    let workdir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let out_dir = PathBuf::from(var("OUT_DIR").unwrap());
+
+    let executable = out_dir
+        .ancestors()
+        .find(|p| p.ends_with("build"))
+        .map(|p| p.parent())
+        .flatten()
+        .map(|p| p.join(name))
+        .unwrap_or_default();
+
+    write(
+        workdir.join("openocd.cfg"),
+        format!(
+            "source [find ../openocd.cfg]\nprogram {} preverify verify reset exit",
+            executable.display()
+        ),
+    )?;
+
+    Ok(())
 }
