@@ -21,6 +21,10 @@ fn main() -> std::io::Result<()> {
 
     write_openocd_flash_file(package)?;
 
+    cc::Build::new()
+        .file("interfaces/libmath.c")
+        .compile("math");
+
     Ok(())
 }
 

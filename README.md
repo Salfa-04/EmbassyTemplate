@@ -39,7 +39,7 @@ mv /path/to/project/example -r /path/to/project/temporary
     - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
     - 将 `<TARGET_TRIPLE>` 修改目标平台的三元组 : 如 `thumbv7em-none-eabihf`
 
-6. 修改 `memory.x`，或删除并为 `embassy-stm32` 添加 `memory-x` Feature
+6. 若要自定义 `memory.x`，删除 `memory-x` Feature，并在 `/path/to/project` 中添加 `memory.x`
 
 ## 下载程序
 
