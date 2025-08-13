@@ -13,6 +13,10 @@
 /// ```
 /// let mut t = init_ticker!(500); // 500ms
 ///
+/// (do something here..)
+///
+/// t.reset(); // Reset the ticker
+///
 /// loop {
 ///   // Do something
 ///    t.next().await;

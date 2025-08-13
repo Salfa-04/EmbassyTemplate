@@ -8,8 +8,6 @@ DEFMT_LOG              = "trace"
 DEFMT_RTT_BUFFER_SIZE  = "1024"
 CARGO_REGISTRY_DEFAULT = "rsproxy"
 
-EMBASSY_EXECUTOR_TASK_ARENA_SIZE = "8192"
-
 
 [alias]
 rr = "r -r"
@@ -32,7 +30,7 @@ rustflags = [
 # linker = "rust-lld"
 runner = [
     "probe-rs",
-    # `attach` or `run`
+    # or `attach`
     "run",
     "--preverify",
     "--no-location",

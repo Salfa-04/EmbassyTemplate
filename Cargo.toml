@@ -12,9 +12,9 @@ default-members = []
 
 
 [workspace.dependencies.embassy-stm32]
-version = "0.2"
+version = "0.3"
 ### Only chips of the same model can be used at the same time
-features = ["defmt", "time-driver-any", "<CHIP>", "memory-x"]
+features = ["defmt", "single-bank", "time-driver-any", "<CHIP>", "memory-x"]
 
 
 [profile]
@@ -36,8 +36,8 @@ embassy-sync = { version = "0.7", features = ["defmt"] }
 version  = "0.7"
 features = ["critical-section-single-core", "linker-plugin-lto"]
 [workspace.dependencies.embassy-executor]
-version  = "0.7"
-features = ["arch-cortex-m", "executor-thread", "executor-interrupt", "defmt"]
+version  = "0.8"
+features = ["arch-cortex-m", "executor-thread", "defmt"]
 
 
 [profile.dev.package]
