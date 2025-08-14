@@ -1,4 +1,8 @@
-use super::prelude::hal::{self, bind_interrupts, peripherals};
+//!
+//! # Interrupts
+//!
+
+use crate::prelude::hal::{self, bind_interrupts, peripherals};
 
 bind_interrupts! {
     pub struct IRQ {

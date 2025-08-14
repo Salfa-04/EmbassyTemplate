@@ -3,6 +3,7 @@
 
 use utils::init_ticker;
 use utils::prelude::*;
+use utils::resrc::*;
 
 mod controller;
 mod tasks;
@@ -10,14 +11,8 @@ mod tasks;
 #[embassy_executor::main]
 async fn entry(s: embassy_executor::Spawner) {
     let (p,) = utils::sys_init();
+    let p = utils::split_resources!(p);
 
-    {
-        let p = (p.IWDG, p.PC13.into());
-        s.must_spawn(tasks::blinky::task(p));
-    }
-
-    {
-        let p = ();
-        s.must_spawn(controller::main(p));
-    }
+    s.must_spawn(tasks::blinky::task(p.blinky));
+    s.must_spawn(controller::main(p.main));
 }

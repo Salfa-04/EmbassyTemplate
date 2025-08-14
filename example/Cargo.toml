@@ -22,6 +22,7 @@ path = "helper/mod.rs"
 embedded-io-async = "0.6"
 
 
+assign-resources.workspace = true
 defmt.workspace            = true
 defmt-rtt.workspace        = true
 cortex-m.workspace         = true

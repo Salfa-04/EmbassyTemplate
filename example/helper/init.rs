@@ -11,7 +11,7 @@
 //! - PG10       for RST
 //!
 
-use super::prelude::hal::{Config, init, rcc, time::mhz};
+use crate::prelude::hal::{Config, init, rcc, time::mhz};
 
 pub fn sys_init() -> (embassy_stm32::Peripherals,) {
     defmt::debug!("System Initialization...");

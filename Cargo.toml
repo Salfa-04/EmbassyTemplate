@@ -24,6 +24,9 @@ release.strip = "debuginfo"
 
 [workspace.dependencies]
 
+assign-resources = "0.5"
+
+
 defmt-rtt    = { version = "1.0", features = ["disable-blocking-mode"] }
 defmt        = { version = "1.0", features = ["encoding-rzcobs", "ip_in_core"] }
 panic-probe  = { version = "1.0", features = ["print-defmt"] }
