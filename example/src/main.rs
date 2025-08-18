@@ -1,7 +1,6 @@
 #![no_std]
 #![no_main]
 
-use utils::init_ticker;
 use utils::prelude::*;
 use utils::resrc::*;
 
