@@ -2,14 +2,15 @@
 #![no_main]
 
 use utils::prelude::*;
-use utils::res::*;
 
 mod controller;
 mod tasks;
 
 #[embassy_executor::main]
 async fn entry(s: embassy_executor::Spawner) -> ! {
-    let (p,) = sys_init();
+    use utils::res::AssignedResources;
+
+    let (p,) = utils::res::sys_init();
     let p = utils::split_resources!(p);
 
     s.must_spawn(tasks::blinky::task(p.blinky));

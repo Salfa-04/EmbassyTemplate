@@ -6,9 +6,9 @@ use super::{AtomicI8, Order};
 
 static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 
-#[must_use]
-#[non_exhaustive]
 #[repr(i8)]
+#[non_exhaustive]
+#[derive(Debug)]
 pub enum SysMode {
     Error = -1,
     Boot = 0,

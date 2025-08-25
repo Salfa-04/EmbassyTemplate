@@ -1,4 +1,4 @@
-use crate::{ControllerSrc};
+use utils::res::ControllerSrc;
 
 #[embassy_executor::task]
 pub async fn main(_p: ControllerSrc) {
