@@ -99,6 +99,16 @@ impl Device {
     pub fn check(&self) -> bool {
         Health::check(&self)
     }
+
+    ///
+    /// # Wait for Device to be Online
+    ///
+    /// Returns a future that resolves when the device is online.
+    ///
+    #[inline(always)]
+    pub fn wait(&self) -> impl core::future::Future<Output = ()> {
+        Health::wait_for(&self)
+    }
 }
 
 impl Device {

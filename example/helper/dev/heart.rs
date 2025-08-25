@@ -29,6 +29,8 @@ impl Health {
     const HEALTH_MS: u8 = 100;
     /// Device Expiration Time in ms
     const EXPIRE_MS: u16 = 500;
+    /// Wait interval in ms when waiting for a device to be online
+    const WAIT_INTERVAL_MS: u8 = 10;
 }
 
 impl Health {
@@ -70,6 +72,24 @@ impl Health {
         if let Some(idx) = ADDR.iter().position(|x| x == addr) {
             // Safety: idx is guaranteed to be in bound
             STATE[idx].check()
+        } else {
+            panic!("Invalid Address: {:?}", addr);
+        }
+    }
+
+    ///
+    /// # Wait for Device to be Online
+    ///
+    /// This function returns a future that resolves when the specified device is online.
+    ///
+    pub fn wait_for(addr: &Device) -> impl core::future::Future<Output = ()> {
+        if let Some(idx) = ADDR.iter().position(|x| x == addr) {
+            async move {
+                // Safety: idx is guaranteed to be in bound
+                while !STATE[idx].check() {
+                    T::after_millis(Self::WAIT_INTERVAL_MS as _).await
+                }
+            }
         } else {
             panic!("Invalid Address: {:?}", addr);
         }

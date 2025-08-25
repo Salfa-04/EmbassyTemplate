@@ -41,6 +41,9 @@ mv /path/to/project/example -r /path/to/project/temporary
 
 6. 若要自定义 `memory.x`，删除 `memory-x` Feature，并在 `/path/to/project` 中添加 `memory.x`
 
+7. 在 `example/Embed.toml` 中：
+    - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
+
 ## 下载程序
 
 ### 使用 `Probe-rs` 下载
@@ -60,4 +63,20 @@ cargo br && openocd # in release
 
 # Attach
 cargo rr # or `cargo r` in debug
+```
+
+## 转发调试信息
+
+打开并修改 `example/Embed.toml` 中的目标地址:
+
+```toml
+rtt.up_channels = [
+    { channel = 0, log_format = "{s}", socket = "172.24.192.1:8888", ...},
+]
+```
+
+其中 `socket` 即为目标转发地址，打开服务器后:
+
+```bash
+cargo embed --release
 ```
