@@ -9,12 +9,7 @@ use ::defmt_rtt as _;
 use ::panic_probe as _;
 
 pub mod bindings;
-pub mod resrc;
-pub use init::sys_init;
-pub use irq::IRQ;
-
-mod init;
-mod irq;
+pub mod dev;
 mod macros;
 
 /// Preludes for easy imports.
@@ -24,6 +19,17 @@ pub mod prelude {
     pub use ::embassy_stm32 as hal; // HAL
     pub use ::embassy_sync as sync; // Sync
     pub use ::embassy_time::Timer as T; // Timer
+}
+
+/// Resource Management
+pub mod res {
+    mod init;
+    mod irq;
+    mod resrc;
+
+    pub use init::sys_init;
+    pub use irq::IRQ;
+    pub use resrc::*;
 }
 
 #[::defmt::panic_handler]

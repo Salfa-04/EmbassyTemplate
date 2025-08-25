@@ -12,7 +12,6 @@ use std::path::PathBuf;
 fn main() -> std::io::Result<()> {
     cargo_emit::rerun_if_changed!("build.rs");
     cargo_emit::rerun_if_changed!("build.map");
-    cargo_emit::rerun_if_changed!("interfaces");
 
     let package = env!("CARGO_PKG_NAME");
 
@@ -106,6 +105,8 @@ fn write_openocd_config_file(name: &str) -> std::io::Result<()> {
 /// > Note the `name` in the `#[link]` attribute
 ///
 fn build_external_lib() {
+    cargo_emit::rerun_if_changed!("interfaces");
+
     cc::Build::new()
         .file("interfaces/libmath.c")
         .compile("math");

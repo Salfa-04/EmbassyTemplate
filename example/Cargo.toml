@@ -19,6 +19,7 @@ path = "helper/mod.rs"
 
 [dependencies]
 
+embedded-can      = "0.4"
 embedded-io-async = "0.6"
 
 
