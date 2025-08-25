@@ -1,23 +1,42 @@
 //!
-//! # Heartbeat Monitor
+//! # Heartbeat Monitor Module
 //!
 
-use super::{AtomicBool, AtomicI8};
-use super::{Device, Order, WATCH_LIST};
+use super::{Device, HeartBeat, WATCH_LIST};
 use crate::{init_ticker, prelude::T};
 
+///
+/// # Device Address List
+///
+/// This is a constant array of device addresses that are being monitored.
+///
 const ADDR: &[Device] = const { WATCH_LIST };
 
+///
+/// # Static Heartbeat State Array
+///
+/// Safety: This is safe because it is only accessed in a controlled manner.
+///
 static STATE: [HeartBeat; ADDR.len()] = unsafe { core::mem::zeroed() };
 
+///
+/// # Health Monitor
+///
 pub struct Health;
 
 impl Health {
+    /// Health Check Interval in ms
     const HEALTH_MS: u8 = 100;
+    /// Device Expiration Time in ms
     const EXPIRE_MS: u16 = 500;
 }
 
 impl Health {
+    ///
+    /// # Feed Heartbeat
+    ///
+    /// Feed the heartbeat for the specified device address.
+    ///
     pub fn feed(addr: &Device) {
         if let Some(idx) = ADDR.iter().position(|x| x == addr) {
             let ttl = const { (Self::EXPIRE_MS / Self::HEALTH_MS as u16) as i8 };
@@ -28,6 +47,11 @@ impl Health {
         }
     }
 
+    ///
+    /// # Kill Heartbeat
+    ///
+    /// Kill the heartbeat for the specified device address.
+    ///
     pub fn kill(addr: &Device) {
         if let Some(idx) = ADDR.iter().position(|x| x == addr) {
             // Safety: idx is guaranteed to be in bound
@@ -37,6 +61,11 @@ impl Health {
         }
     }
 
+    ///
+    /// # Check Heartbeat
+    ///
+    /// Check if the specified device is online.
+    ///
     pub fn check(addr: &Device) -> bool {
         if let Some(idx) = ADDR.iter().position(|x| x == addr) {
             // Safety: idx is guaranteed to be in bound
@@ -48,6 +77,9 @@ impl Health {
 }
 
 impl Health {
+    ///
+    /// # Run Health Monitor
+    ///
     pub async fn run() -> ! {
         let mut t = init_ticker!(Self::HEALTH_MS as u64);
         (T::after_millis(1000).await, t.reset());
@@ -64,34 +96,15 @@ impl Health {
     }
 }
 
-struct HeartBeat {
-    online: AtomicBool,
-    ttl: AtomicI8,
-}
-
-impl HeartBeat {
-    fn feed(&self, ttl: i8) {
-        self.online.store(true, Order);
-        self.ttl.store(ttl, Order);
-    }
-
-    fn kill(&self) {
-        self.online.store(false, Order);
-        self.ttl.store(0, Order);
-    }
-
-    fn check(&self) -> bool {
-        self.online.load(Order)
-    }
-
-    fn tick(&self) -> bool {
-        let prev = self.ttl.fetch_sub(1, Order);
-        if prev <= 1 {
-            self.ttl.store(0, Order);
-            self.online.store(false, Order);
-            return false; // Offline
+impl defmt::Format for Health {
+    fn format(&self, fmt: defmt::Formatter) {
+        for (idx, x) in STATE.iter().enumerate() {
+            defmt::write!(fmt, "Device {}: ", ADDR[idx]);
+            if x.check() {
+                defmt::write!(fmt, "Online (TTL={})\n", x.ttl());
+            } else {
+                defmt::write!(fmt, "Offline (TTL<0)\n");
+            }
         }
-
-        true // Still Online
     }
 }

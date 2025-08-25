@@ -1,11 +1,15 @@
 //!
-//! # System Status
+//! # System Status Module
 //!
 
 use super::{AtomicI8, Order};
 
 static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 
+///
+/// # System Mode Enumeration
+///
+///
 #[repr(i8)]
 #[non_exhaustive]
 #[derive(Debug)]
@@ -16,6 +20,9 @@ pub enum SysMode {
     Normal = 2,
 }
 
+///
+/// # SysMode Implementation
+///
 impl SysMode {
     const ERROR: i8 = Self::Error as _;
     const BOOT: i8 = Self::Boot as _;
@@ -24,10 +31,20 @@ impl SysMode {
 }
 
 impl SysMode {
+    ///
+    /// # Set System Mode
+    ///
+    /// Set the current system mode to the specified value.
+    ///
     pub fn set(self) {
         STATUS.store(self as _, Order);
     }
 
+    ///
+    /// # Get System Mode
+    ///
+    /// Retrieve the current system mode.
+    ///
     pub fn get() -> SysMode {
         match STATUS.load(Order) {
             Self::ERROR => Self::Error,

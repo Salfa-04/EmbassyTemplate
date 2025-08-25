@@ -5,42 +5,36 @@
 use atomic::Ordering::Relaxed as Order;
 use atomic::{AtomicBool, AtomicI8};
 use core::sync::atomic;
+use inner::HeartBeat;
 
-pub use device::DevAddr;
+pub use devid::DevAddr;
 pub use heart::Health;
 pub use status::SysMode;
 
-mod device;
+mod devid;
 mod heart;
+mod inner;
 mod status;
 
-/// Health Watch List
+///
+/// # Health Watch List
+///
 const WATCH_LIST: &[Device] = &[
-    // Device::None,
+    Device::ChaMotA,
+    Device::ChaMotB,
+    Device::ChaMotC,
+    Device::ChaMotD,
 ];
 
+///
+/// # Device Enumeration
+///
 #[repr(usize)]
 #[derive(defmt::Format, Debug, PartialEq)]
 pub enum Device {
-    None = 0x0000,
-}
-
-impl Device {
-    pub fn feed(&self) {
-        Health::feed(&self)
-    }
-
-    pub fn kill(&self) {
-        Health::kill(&self)
-    }
-
-    pub fn check(&self) -> bool {
-        Health::check(&self)
-    }
-}
-
-impl Device {
-    pub const fn id(self) -> DevAddr {
-        DevAddr::new(self as _)
-    }
+    ChaCtrl = 0x200,
+    ChaMotA = 0x201,
+    ChaMotB = 0x202,
+    ChaMotC = 0x203,
+    ChaMotD = 0x204,
 }
