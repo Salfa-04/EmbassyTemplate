@@ -17,16 +17,6 @@ mod inner;
 mod status;
 
 ///
-/// # Health Watch List
-///
-const WATCH_LIST: &[Device] = &[
-    Device::ChaMotA,
-    Device::ChaMotB,
-    Device::ChaMotC,
-    Device::ChaMotD,
-];
-
-///
 /// # Device Enumeration
 ///
 #[repr(usize)]
@@ -38,3 +28,13 @@ pub enum Device {
     ChaMotC = 0x203,
     ChaMotD = 0x204,
 }
+
+///
+/// # Health Watch List
+///
+const WATCH_LIST: &[Device] = &[
+    // Device::ChaMotA,
+    // Device::ChaMotB,
+    // Device::ChaMotC,
+    // Device::ChaMotD,
+];

@@ -71,13 +71,24 @@ impl HeartBeat {
 
 impl Device {
     ///
+    /// # Get Device ID
+    ///
+    /// Returns the CAN device ID associated with the device.
+    ///
+    pub const fn id(self) -> DevAddr {
+        DevAddr::new(self as _)
+    }
+}
+
+impl Device {
+    ///
     /// # Feed Heartbeat
     ///
     /// Feed the heartbeat for this device.
     ///
     #[inline(always)]
     pub fn feed(&self) {
-        Health::feed(&self)
+        Health::feed(self)
     }
 
     ///
@@ -87,7 +98,7 @@ impl Device {
     ///
     #[inline(always)]
     pub fn kill(&self) {
-        Health::kill(&self)
+        Health::kill(self)
     }
 
     ///
@@ -97,7 +108,7 @@ impl Device {
     ///
     #[inline(always)]
     pub fn check(&self) -> bool {
-        Health::check(&self)
+        Health::check(self)
     }
 
     ///
@@ -107,17 +118,6 @@ impl Device {
     ///
     #[inline(always)]
     pub fn wait(&self) -> impl core::future::Future<Output = ()> {
-        Health::wait_for(&self)
-    }
-}
-
-impl Device {
-    ///
-    /// # Get Device ID
-    ///
-    /// Returns the CAN device ID associated with the device.
-    ///
-    pub const fn id(self) -> DevAddr {
-        DevAddr::new(self as _)
+        Health::wait_for(self)
     }
 }

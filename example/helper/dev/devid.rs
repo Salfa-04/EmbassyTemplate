@@ -2,7 +2,6 @@
 //! # Device Address Wrapper
 //!
 
-use core::fmt::{Display, Formatter, Result};
 use embedded_can::{ExtendedId, StandardId};
 
 ///
@@ -57,8 +56,8 @@ impl DevAddr {
     }
 }
 
-impl Display for DevAddr {
-    fn fmt(&self, f: &mut Formatter) -> Result {
-        write!(f, "{:#x?}", self.0)
+impl defmt::Format for DevAddr {
+    fn format(&self, fmt: defmt::Formatter) {
+        defmt::write!(fmt, "{:#x}", self.0)
     }
 }
