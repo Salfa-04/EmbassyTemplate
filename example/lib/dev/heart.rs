@@ -25,11 +25,6 @@ static STATE: [HeartBeat; ADDR.len()] = unsafe { core::mem::zeroed() };
 pub struct Health;
 
 impl Health {
-    /// Get Health Check Interval
-    pub const fn interval() -> u8 {
-        Self::HEALTH_MS
-    }
-
     /// Get Number of Monitored Devices
     const fn amount() -> usize {
         assert!(
@@ -39,9 +34,12 @@ impl Health {
 
         ADDR.len()
     }
-}
 
-impl Health {
+    /// Get Health Check Interval
+    pub const fn interval() -> u8 {
+        Self::HEALTH_MS
+    }
+
     ///
     /// # Build Device-Heartbeat Pairs
     ///
@@ -54,7 +52,9 @@ impl Health {
             (&ADDR[idx], &STATE[idx])
         })
     }
+}
 
+impl Health {
     ///
     /// # Tick Heartbeat
     ///
