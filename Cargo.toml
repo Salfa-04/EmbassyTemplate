@@ -5,34 +5,34 @@ package.version = "0.0.0"
 package.edition = "2024"
 package.publish = false
 package.authors = ["Salfa <me@salfa.cc>"]
+default-members = []
 
 members         = ["*"]
 exclude         = [".cargo", ".git", "target", "example"]
-default-members = []
 
 
 [workspace.dependencies.embassy-stm32]
-version = "0.3"
+version = "0.4"
 ### Only chips of the same model can be used at the same time
 features = ["defmt", "single-bank", "time-driver-any", "<CHIP>", "memory-x"]
 
 
 [profile]
 release.lto   = true
-release.strip = "debuginfo"
+release.debug = true
 
 
 [workspace.dependencies]
 
 assign-resources = "0.5"
-embassy-futures  = "0.1.1"
+embassy-futures  = "0.1"
 
 
 defmt-rtt    = { version = "1.0", features = ["disable-blocking-mode"] }
 defmt        = { version = "1.0", features = ["encoding-rzcobs", "ip_in_core"] }
 panic-probe  = { version = "1.0", features = ["print-defmt"] }
 cortex-m-rt  = { version = "0.7", features = ["device", "zero-init-ram"] }
-embassy-time = { version = "0.4", features = ["defmt", "tick-hz-32_768"] }
+embassy-time = { version = "0.5", features = ["defmt", "tick-hz-32_768"] }
 embassy-sync = { version = "0.7", features = ["defmt"] }
 
 
@@ -40,7 +40,7 @@ embassy-sync = { version = "0.7", features = ["defmt"] }
 version  = "0.7"
 features = ["critical-section-single-core", "linker-plugin-lto"]
 [workspace.dependencies.embassy-executor]
-version  = "0.8"
+version  = "0.9"
 features = ["arch-cortex-m", "executor-thread", "defmt"]
 
 

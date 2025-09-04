@@ -18,8 +18,6 @@ fn main() -> std::io::Result<()> {
     // Output the build.map file   : This is useful for analysis.
     cargo_emit::rustc_link_arg!(format!("-Map={}/build.map", package));
 
-    build_external_lib();
-
     write_openocd_config_file(package)?;
 
     Ok(())
@@ -49,65 +47,4 @@ fn write_openocd_config_file(name: &str) -> std::io::Result<()> {
     )?;
 
     Ok(())
-}
-
-///
-/// # Builds the external libraries
-///
-/// ## Usage
-///
-/// Compiles the external source file located in the `interfaces` directory
-/// into a static library`. This library is automatically linked to the Rust
-///  project during compilation.
-///
-/// The Rust interface for this library is provided through the `helper::bindings` module,
-/// which contains the FFI (Foreign Function Interface) declarations.
-///
-/// ### in the `build.rs` file:
-///
-/// ```
-/// cc::Build::new()
-///     .file("interfaces/libmath.c")
-///     .compile("math");
-/// ```
-///
-/// ### in the `interfaces/libmath.c` file:
-///
-/// ```
-/// #include <stdint.h>
-///
-/// uint8_t c_buffer[16] = {0};
-///
-/// int32_t c_add(int32_t a, int32_t b) { return a + b; }
-/// int32_t c_sub(int32_t a, int32_t b) { return a - b; }
-/// int32_t c_mul(int32_t a, int32_t b) { return a * b; }
-/// int32_t c_div(int32_t a, int32_t b) { return a / b; }
-/// int32_t c_mod(int32_t a, int32_t b) { return a % b; }
-/// ```
-///
-/// ### in the `helper::bindings` module:
-///
-/// ```
-/// use {super::prelude::hal, core::ffi::*};
-///
-/// #[link(name = "math", kind = "static")]
-/// unsafe extern "C" {
-///     pub static mut c_buffer: [c_uchar; 16];
-///
-///     pub fn c_add(a: c_int, b: c_int) -> c_int;
-///     pub fn c_sub(a: c_int, b: c_int) -> c_int;
-///     pub fn c_mul(a: c_int, b: c_int) -> c_int;
-///     pub fn c_div(a: c_int, b: c_int) -> c_int;
-///     pub fn c_mod(a: c_int, b: c_int) -> c_int;
-/// }
-/// ```
-///
-/// > Note the `name` in the `#[link]` attribute
-///
-fn build_external_lib() {
-    cargo_emit::rerun_if_changed!("interfaces");
-
-    cc::Build::new()
-        .file("interfaces/libmath.c")
-        .compile("math");
 }

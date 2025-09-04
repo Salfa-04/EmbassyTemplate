@@ -1,14 +1,24 @@
 //!
-//! # System Status Module
+//! # System Status
 //!
 
-use super::{AtomicI8, Order};
+use crate::{AtomicI8, Order};
 
 static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 
 ///
 /// # System Mode Enumeration
 ///
+/// ## Get Current Mode
+/// ```rust
+/// let mode: SysMode = SysMode::get();
+/// ```
+///
+/// ## Set Current Mode
+/// ```rust
+/// SysMode::Normal.set();
+/// SysMode::set(SysMode::Normal);
+/// ```
 ///
 #[repr(i8)]
 #[non_exhaustive]
@@ -16,17 +26,12 @@ static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 pub enum SysMode {
     Error = -1,
     Boot = 0,
-    NoForce = 1,
     Normal = 2,
 }
 
-///
-/// # SysMode Implementation
-///
 impl SysMode {
     const ERROR: i8 = Self::Error as _;
     const BOOT: i8 = Self::Boot as _;
-    const NOFORCE: i8 = Self::NoForce as _;
     const NORMAL: i8 = Self::Normal as _;
 }
 
@@ -49,7 +54,6 @@ impl SysMode {
         match STATUS.load(Order) {
             Self::ERROR => Self::Error,
             Self::BOOT => Self::Boot,
-            Self::NOFORCE => Self::NoForce,
             Self::NORMAL => Self::Normal,
 
             _ => panic!("Invalid System Mode!"),

@@ -13,5 +13,5 @@ assign_resources! {
     blinky: BlinkySrc {
         iwdg_p: IWDG,
         led_pin: PC13,
-    },
+    }
 }

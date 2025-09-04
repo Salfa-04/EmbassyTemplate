@@ -7,10 +7,15 @@
 
 use ::defmt_rtt as _;
 use ::panic_probe as _;
+use core::sync::atomic;
 
-pub mod bindings;
+use atomic::Ordering::Relaxed as Order;
+use atomic::{AtomicBool, AtomicI8};
+pub use status::SysMode;
+
 pub mod dev;
 mod macros;
+mod status;
 
 /// Preludes for easy imports.
 pub mod prelude {

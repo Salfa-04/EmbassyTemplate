@@ -14,13 +14,10 @@ autotests    = false
 
 [lib]
 name = "utils"
-path = "helper/mod.rs"
+path = "lib/mod.rs"
 
 
 [dependencies]
-
-embedded-can      = "0.4"
-embedded-io-async = "0.6"
 
 
 assign-resources.workspace = true
@@ -38,5 +35,3 @@ panic-probe.workspace      = true
 
 [build-dependencies]
 cargo-emit = "0.2"
-
-cc = { version = "1.2", features = ["parallel"] }
