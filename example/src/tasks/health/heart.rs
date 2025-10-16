@@ -3,7 +3,11 @@
 //!
 
 use super::{Device, WATCH_LIST};
-use crate::{AtomicBool, AtomicI8, Order};
+use core::sync::atomic;
+use utils::T;
+
+use atomic::Ordering::Relaxed as Order;
+use atomic::{AtomicBool, AtomicI8};
 
 ///
 /// # Device Address List
@@ -22,7 +26,7 @@ static STATE: [HeartBeat; ADDR.len()] = unsafe { core::mem::zeroed() };
 ///
 /// # Health Monitor
 ///
-pub struct Health;
+pub(super) struct Health;
 
 impl Health {
     /// Get Number of Monitored Devices
@@ -164,7 +168,7 @@ impl Health {
             async move {
                 // Safety: idx is guaranteed to be in bound
                 while !STATE[idx].check() {
-                    crate::prelude::T::after_millis(Self::WAIT_INTERVAL_MS as _).await
+                    T::after_millis(Self::WAIT_INTERVAL_MS as _).await
                 }
             }
         } else {
@@ -176,7 +180,7 @@ impl Health {
 ///
 /// # Heartbeat Structure
 ///
-pub struct HeartBeat {
+pub(super) struct HeartBeat {
     online: AtomicBool,
     ttl: AtomicI8,
 }

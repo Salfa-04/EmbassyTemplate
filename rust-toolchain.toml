@@ -4,5 +4,5 @@ profile = "minimal"
 
 targets = ["thumbv7em-none-eabihf", "thumbv7m-none-eabi"]
 
-# llvm-tools: cargo binstall cargo-binutils
+# llvm-tools: doas pacman -S cargo-binutils
 components = ["rust-src", "rustfmt", "llvm-tools"]

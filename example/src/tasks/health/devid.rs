@@ -44,3 +44,20 @@ impl defmt::Format for DevAddr {
         defmt::write!(fmt, "{:#x}", self.0)
     }
 }
+
+// /**
+//  *                 Impl for DevAddr                   *
+//  */
+// use embedded_can::{ExtendedId, StandardId};
+
+// impl DevAddr {
+//     pub const fn as_standard_id(&self) -> StandardId {
+//         // Safety: Const-Fn can panic when Compiling.
+//         StandardId::new(self.as_raw() as _).unwrap()
+//     }
+
+//     pub const fn as_extended_id(&self) -> ExtendedId {
+//         // Safety: Const-Fn can panic when Compiling.
+//         ExtendedId::new(self.as_raw() as _).unwrap()
+//     }
+// }

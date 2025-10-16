@@ -2,7 +2,7 @@
 //! # System Status
 //!
 
-use crate::{AtomicI8, Order};
+use super::{AtomicI8, Order};
 
 static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 
@@ -26,7 +26,7 @@ static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 pub enum SysMode {
     Error = -1,
     Boot = 0,
-    Normal = 2,
+    Normal = 1,
 }
 
 impl SysMode {
@@ -36,15 +36,6 @@ impl SysMode {
 }
 
 impl SysMode {
-    ///
-    /// # Set System Mode
-    ///
-    /// Set the current system mode to the specified value.
-    ///
-    pub fn set(self) {
-        STATUS.store(self as _, Order);
-    }
-
     ///
     /// # Get System Mode
     ///
@@ -56,7 +47,16 @@ impl SysMode {
             Self::BOOT => Self::Boot,
             Self::NORMAL => Self::Normal,
 
-            _ => panic!("Invalid System Mode!"),
+            x => panic!("Invalid System Mode: {x}"),
         }
+    }
+
+    ///
+    /// # Set System Mode
+    ///
+    /// Set the current system mode to the specified value.
+    ///
+    pub fn set(self) {
+        STATUS.store(self as _, Order);
     }
 }
