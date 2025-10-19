@@ -6,10 +6,13 @@ use super::private::*;
 
 type Pair = (&'static Device, &'static HeartBeat);
 
-static PAIRS: [Pair; WATCH_LIST.len()] = const {
+static PAIRS: [Pair; WATCH_LIST.len()] = {
     const N: usize = WATCH_LIST.len();
     static STATE: [HeartBeat; N] = unsafe { core::mem::zeroed() };
-    let mut pairs: [Pair; N] = unsafe { core::mem::zeroed() };
+    let mut pairs: _ = match N {
+        0 => [],
+        _ => [(&WATCH_LIST[0], &STATE[0]); _],
+    };
     let mut i = 0;
     while i < N {
         pairs[i] = (&WATCH_LIST[i], &STATE[i]);

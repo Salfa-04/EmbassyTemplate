@@ -11,7 +11,9 @@ members = ["utils"]
 
 
 [profile]
-release.lto   = true
+# defmt requires `lto = false`
+release.lto = false
+# defmt requires `debug = true`
 release.debug = true
 
 
