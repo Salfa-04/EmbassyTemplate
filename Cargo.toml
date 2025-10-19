@@ -16,15 +16,19 @@ release.debug = true
 
 
 [workspace.dependencies]
+assign-resources = "0.5"
 
-utils = { path = "./utils" }
-defmt = { version = "1.0", features = ["encoding-rzcobs", "ip_in_core"] }
+[workspace.dependencies.utils]
+path     = "./utils"
+features = []
 
 
+[workspace.dependencies.defmt]
+version  = "1.0"
+features = ["encoding-rzcobs", "ip_in_core"]
 [workspace.dependencies.embassy-executor]
 version  = "0.9"
 features = ["arch-cortex-m", "executor-thread", "defmt"]
-
 
 [profile.dev.package]
 cortex-m.opt-level         = 3

@@ -22,27 +22,30 @@ mv /path/to/project/example -r /path/to/project/temporary
 
 在使用示例之前，您需要修改以下文件中的关键字段：
 
-1. 在 `Cargo.toml` 中：
-    - 将 `<CHIP>` 修改为目标芯片 : 如 `stm32g473cb`
+1. 在 `utils/Cargo.toml` 中：
+    - 将 `<CHIP>` 修改为目标芯片 : 如 `stm32g473re`
 
 2. 在 `.cargo/config.toml` 中：
-    - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
+    - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473RE`
     - 将 `<TARGET_TRIPLE>` 修改目标平台的三元组 : 如 `thumbv7em-none-eabihf`
 
-3. 在 `openocd.cfg` 中：
-    - 将 `<CHIP>` 修改为目标芯片所代表的配置文件 : 如 `stm32g4x`
-
-4. 在 `utils/Cargo.toml` 中：
+3. 在 `temporary/Cargo.toml` 中：
     - 将 `<NAME>` 修改为该文件所在目录的命名 : 如 `temporary`
 
+4. 在 `Cargo.toml` 中
+    - 在 `members` 中添加项目成员 : 如 `temporary`
+
 5. 在 `temporary/.vscode/launch.json` 中：
-    - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
+    - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473RE`
     - 将 `<TARGET_TRIPLE>` 修改目标平台的三元组 : 如 `thumbv7em-none-eabihf`
 
-6. 若要自定义 `memory.x`，删除 `memory-x` Feature，并在 `/path/to/project/utils` 中添加 `memory.x`
+6. 在 `temporary/Embed.toml` 中：
+    - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473RE`
 
-7. 在 `temporary/Embed.toml` 中：
-    - 将 `<CHIP>` 修改为目标芯片 : 如 `STM32G473CB`
+7. 在 `openocd.cfg` 中：
+    - 将 `<CHIP>` 修改为目标芯片所代表的配置文件 : 如 `stm32g4x`
+
+8. 若要自定义 `memory.x`，删除 `memory-x` Feature，并在 `/path/to/project/utils` 中添加 `memory.x`
 
 ## 下载程序
 

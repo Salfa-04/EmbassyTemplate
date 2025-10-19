@@ -2,7 +2,7 @@
 //! # System Status
 //!
 
-use super::{AtomicI8, Order};
+use super::private::*;
 
 static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 

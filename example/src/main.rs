@@ -1,22 +1,23 @@
 #![no_std]
 #![no_main]
 
-use utils::prelude::{*,rt as cortex_m_rt};
+use utils::prelude::{rt as cortex_m_rt, *};
 
 mod controller;
 mod system;
 mod tasks;
 
-
 #[embassy_executor::main]
 async fn entry(s: embassy_executor::Spawner) {
-    let (p,) = utils::res::sys_init();
+    let (p,) = utils::sys_init();
     let r = {
-        use utils::res::*;
-        utils::split_resources!(p)
+        use system::*;
+        split_resources!(p)
     };
 
     s.must_spawn(tasks::health::task());
+
     s.must_spawn(tasks::blinky::task(r.blinky));
-    s.must_spawn(controller::main(r.main));
+
+    s.must_spawn(controller::main());
 }

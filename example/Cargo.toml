@@ -14,10 +14,10 @@ autotests    = false
 
 [dependencies]
 
-assign-resources = "0.5"
+utils.workspace = true
+defmt.workspace = true
 
-utils.workspace            = true
-defmt.workspace            = true
+assign-resources.workspace = true
 embassy-executor.workspace = true
 
 

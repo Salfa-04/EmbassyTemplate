@@ -1,15 +1,13 @@
-use crate::system::{ControllerSrc, SysMode};
-use crate::tasks::health::Device;
+use crate::system::{Device, SysMode};
 
 #[embassy_executor::task]
-pub async fn main(_p: ControllerSrc) {
+pub async fn main() {
     let mut t = utils::init_ticker!(1);
 
     SysMode::Boot.set();
 
     let device = Device::Placeholder;
-    let _id = Device::Placeholder.id().as_raw();
-    device.wait().await;
+    Device::wait(&Device::Placeholder, &mut t).await;
 
     SysMode::Normal.set();
 
