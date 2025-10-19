@@ -2,11 +2,9 @@
 //! # Blinky Task
 //!
 
-use crate::hal;
-
+use crate::{hal, system::BlinkySrc};
 use hal::gpio::{Level, Output as OP, Speed};
 use hal::wdg::IndependentWatchdog as Dog;
-use utils::res::BlinkySrc;
 
 #[embassy_executor::task]
 pub async fn task(p: BlinkySrc) -> ! {
