@@ -4,21 +4,23 @@
 
 use super::private::*;
 
+const LIST_SIZE: usize = WATCH_LIST.len();
 type Pair = (&'static Device, &'static HeartBeat);
 
-static PAIRS: [Pair; WATCH_LIST.len()] = const {
-    const N: usize = WATCH_LIST.len();
-    static STATE: [HeartBeat; N] = unsafe { core::mem::zeroed() };
-    let mut pairs: _ = match N {
-        0 => [],
-        _ => [(&WATCH_LIST[0], &STATE[0]); _],
-    };
-    let mut i = 0;
-    while i < N {
-        pairs[i] = (&WATCH_LIST[i], &STATE[i]);
-        i += 1;
+static PAIRS: Option<[Pair; LIST_SIZE]> = const {
+    static STATE: [HeartBeat; LIST_SIZE] = unsafe { core::mem::zeroed() };
+    match LIST_SIZE {
+        0 => None,
+        _ => {
+            let mut pairs = [(&WATCH_LIST[0], &STATE[0]); LIST_SIZE];
+            let mut i = 0;
+            while i < LIST_SIZE {
+                pairs[i] = (&WATCH_LIST[i], &STATE[i]);
+                i += 1;
+            }
+            Some(pairs)
+        }
     }
-    pairs
 };
 
 impl Device {
@@ -28,7 +30,10 @@ impl Device {
     /// Get the heartbeat associated with this device.
     ///
     fn heartbeat(&self) -> Option<&'static HeartBeat> {
-        PAIRS.iter().find(|&&(addr, _)| addr == self).map(|x| x.1)
+        PAIRS
+            .as_ref()
+            .and_then(|p: _| p.iter().find(|&&(addr, _)| addr == self))
+            .map(|x: _| x.1)
     }
 
     ///
@@ -47,6 +52,17 @@ impl Device {
     ///
     pub const fn interval() -> u64 {
         Self::HEALTH_MS as _
+    }
+
+     ///
+    /// # Display Health
+    ///
+    /// Returns a Health formatter for this device.
+    ///
+    /// **impl [defmt::Format]**
+    ///
+    pub const fn display(&self) -> Health<'_> {
+        Health { inner: self }
     }
 }
 

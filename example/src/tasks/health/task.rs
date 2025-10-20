@@ -13,11 +13,13 @@ pub async fn task() -> ! {
     loop {
         for device in WATCH_LIST {
             if !device.tick() {
-                defmt::warn!("Device Offline: {:?}", device);
+                defmt::warn!("Device Offline: {:?}", device.display());
             }
         }
 
-        // defmt::debug!("Health: {:?}", WATCH_LIST);
+        // for ele in WATCH_LIST {
+        //     defmt::info!("{:?}", ele.display());
+        // }
 
         t.next().await
     }

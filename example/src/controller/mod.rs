@@ -1,4 +1,4 @@
-use crate::system::{Device, SysMode};
+use crate::system::SysMode;
 
 #[embassy_executor::task]
 pub async fn main() {
