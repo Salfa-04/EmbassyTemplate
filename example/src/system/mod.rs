@@ -9,7 +9,7 @@
 /// # Device Enumeration
 ///
 #[repr(usize)]
-#[derive(Debug, PartialEq)]
+#[derive(defmt::Format, Debug, PartialEq)]
 pub enum Device {
     Placeholder = 0x0000,
 }

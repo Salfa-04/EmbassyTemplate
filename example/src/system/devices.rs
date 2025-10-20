@@ -54,7 +54,7 @@ impl Device {
         Self::HEALTH_MS as _
     }
 
-     ///
+    ///
     /// # Display Health
     ///
     /// Returns a Health formatter for this device.
@@ -139,18 +139,23 @@ impl Device {
     }
 }
 
-impl defmt::Format for Device {
+pub struct Health<'t> {
+    inner: &'t Device,
+}
+
+impl<'t> defmt::Format for Health<'t> {
     fn format(&self, fmt: defmt::Formatter) {
-        let device = self.heartbeat();
+        let this = self.inner;
+        let device: _ = this.heartbeat();
 
         if let Some(heart) = device {
             if heart.check() {
-                defmt::write!(fmt, "{:?} (Online, TTL={})", self, heart.ttl());
+                defmt::write!(fmt, "{:?} (Online, TTL={})", this, heart.ttl());
             } else {
-                defmt::write!(fmt, "{:?} (Offline)", self);
+                defmt::write!(fmt, "{:?} (Offline)", this);
             }
         } else {
-            defmt::write!(fmt, "{:?} (No Heartbeat)", self);
+            defmt::write!(fmt, "{:?} (No Heartbeat)", this);
         }
     }
 }
