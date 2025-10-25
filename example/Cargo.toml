@@ -17,6 +17,7 @@ autotests    = false
 utils.workspace = true
 defmt.workspace = true
 
+cortex-m-rt.workspace      = true
 assign-resources.workspace = true
 embassy-executor.workspace = true
 

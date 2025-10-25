@@ -22,7 +22,6 @@ features = ["defmt", "single-bank", "time-driver-any", "<CHIP>", "memory-x"]
 defmt.workspace = true
 embassy-futures = "0.1"
 
-cortex-m-rt  = { version = "0.7", features = ["device"] }
 defmt-rtt    = { version = "1.0", features = ["disable-blocking-mode"] }
 embassy-sync = { version = "0.7", features = ["defmt"] }
 embassy-time = { version = "0.5", features = ["defmt", "tick-hz-32_768"] }
@@ -30,4 +29,4 @@ panic-probe  = { version = "1.0", features = ["print-defmt"] }
 
 [dependencies.cortex-m]
 version  = "0.7"
-features = ["critical-section-single-core", "linker-plugin-lto"]
+features = ["critical-section-single-core", "linker-plugin-lto", "inline-asm"]

@@ -1,7 +1,7 @@
 #![no_std]
 #![no_main]
 
-use utils::prelude::{rt as cortex_m_rt, *};
+use utils::prelude::*;
 
 mod controller;
 mod system;
