@@ -9,17 +9,16 @@ type Pair = (&'static Device, &'static HeartBeat);
 
 static PAIRS: Option<[Pair; LIST_SIZE]> = const {
     static STATE: [HeartBeat; LIST_SIZE] = unsafe { core::mem::zeroed() };
-    match LIST_SIZE {
-        0 => None,
-        _ => {
-            let mut pairs = [(&WATCH_LIST[0], &STATE[0]); LIST_SIZE];
-            let mut i = 0;
-            while i < LIST_SIZE {
-                pairs[i] = (&WATCH_LIST[i], &STATE[i]);
-                i += 1;
-            }
-            Some(pairs)
+    if let LIST_SIZE = 0 {
+        None
+    } else {
+        let mut pairs = [(&WATCH_LIST[0], &STATE[0]); LIST_SIZE];
+        let mut i = 0;
+        while i < LIST_SIZE {
+            pairs[i] = (&WATCH_LIST[i], &STATE[i]);
+            i += 1;
         }
+        Some(pairs)
     }
 };
 
@@ -43,26 +42,6 @@ impl Device {
     ///
     const fn max_ttl() -> i8 {
         (Self::EXPIRE_MS / Self::HEALTH_MS as u16) as i8
-    }
-
-    ///
-    /// # Get Health Check Interval
-    ///
-    /// Returns the health check interval in milliseconds.
-    ///
-    pub const fn interval() -> u64 {
-        Self::HEALTH_MS as _
-    }
-
-    ///
-    /// # Display Health
-    ///
-    /// Returns a Health formatter for this device.
-    ///
-    /// **impl [defmt::Format]**
-    ///
-    pub const fn display(&self) -> Health<'_> {
-        Health { inner: self }
     }
 }
 
@@ -110,7 +89,7 @@ impl Device {
     ///
     /// Returns a future that resolves when the device is online.
     ///
-    pub fn wait(&self, t: &mut Ticker) -> impl core::future::Future<Output = ()> {
+    pub fn wait(&self, t: &mut Ticker) -> impl Future<Output = ()> {
         let heart = match self.heartbeat() {
             Some(x) => x,
             None => panic!("Invalid Address: {:?}", self),
@@ -136,6 +115,28 @@ impl Device {
             Some(x) => x.tick(),
             None => panic!("Invalid Address: {:?}", self),
         }
+    }
+}
+
+impl Device {
+    ///
+    /// # Get Health Check Interval
+    ///
+    /// Returns the health check interval in milliseconds.
+    ///
+    pub const fn interval() -> u64 {
+        Self::HEALTH_MS as _
+    }
+
+    ///
+    /// # Display Health
+    ///
+    /// Returns a Health formatter for this device.
+    ///
+    /// **impl [defmt::Format]**
+    ///
+    pub const fn display(&self) -> Health<'_> {
+        Health { inner: self }
     }
 }
 

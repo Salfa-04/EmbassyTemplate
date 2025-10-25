@@ -59,4 +59,17 @@ impl SysMode {
     pub fn set(self) {
         STATUS.store(self as _, Order);
     }
+
+    ///
+    /// # Wait for System Mode
+    ///
+    /// Wait until the system mode matches the specified mode.
+    ///
+    pub fn wait(&self, t: &mut Ticker) -> impl Future<Output = ()> {
+        async {
+            while Self::get() != *self {
+                t.next().await
+            }
+        }
+    }
 }
