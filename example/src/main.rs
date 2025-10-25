@@ -9,7 +9,7 @@ mod tasks;
 
 #[embassy_executor::main]
 async fn entry(s: embassy_executor::Spawner) {
-    let (p,) = utils::sys_init();
+    let (_c, p) = utils::sys_init();
     let r = {
         use system::*;
         split_resources!(p)

@@ -9,9 +9,11 @@ mod init;
 mod macros;
 
 pub use init::sys_init;
+pub use prelude::ll::asm;
+pub use prelude::ll::peripheral;
 pub use prelude::time::Timer as T;
 
-/// # Preludes for easy imports.
+/// # Preludes for Easy Imports.
 pub mod prelude {
     pub use ::cortex_m as ll; // Low Level
     pub use ::cortex_m_rt as rt; // Runtime

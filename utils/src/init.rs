@@ -2,19 +2,25 @@
 //! # System Initialization
 //!
 
-use crate::prelude::hal::{Config, init, rcc, time::mhz};
+use crate::prelude::{hal, ll};
+use hal::{Config, Peripherals, init, rcc, time::mhz};
+use ll::{Peripherals as CorePeripherals, singleton};
 
 ///
 /// # System Initialization Function
 ///
 /// This function initializes the system peripherals and clocks.
 ///
-pub fn sys_init() -> (embassy_stm32::Peripherals,) {
+pub fn sys_init() -> (CorePeripherals, Peripherals) {
     defmt::debug!("System Initialization...");
 
-    if cortex_m::singleton!(:()=()).is_none() {
+    if singleton!(:()=()).is_none() {
         panic!("Can Be Called Only Once!!!");
     }
+
+    let Some(core) = CorePeripherals::take() else {
+        panic!("Failed to take Core Peripherals!!!");
+    };
 
     let peripherals = {
         let mut config = Config::default();
@@ -23,5 +29,5 @@ pub fn sys_init() -> (embassy_stm32::Peripherals,) {
         init(config) // SysClock = xMHz
     };
 
-    (peripherals,)
+    (core, peripherals)
 }
