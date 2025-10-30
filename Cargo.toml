@@ -18,8 +18,8 @@ release.debug = true
 
 
 [workspace.dependencies]
-assign-resources = "0.5"
 cortex-m-rt      = "0.7"
+assign-resources = "0.5"
 
 [workspace.dependencies.utils]
 path     = "./utils"
