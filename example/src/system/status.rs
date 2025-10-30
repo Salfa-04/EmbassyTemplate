@@ -22,7 +22,7 @@ static STATUS: AtomicI8 = AtomicI8::new(SysMode::Boot as _);
 ///
 #[repr(i8)]
 #[non_exhaustive]
-#[derive(defmt::Format, Debug)]
+#[derive(PartialEq, defmt::Format, Debug)]
 pub enum SysMode {
     Error = -1,
     Boot = 0,
