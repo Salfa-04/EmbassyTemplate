@@ -8,6 +8,7 @@ use ::panic_probe as _;
 mod init;
 mod macros;
 
+pub use bitfield_struct::*;
 pub use init::sys_init;
 pub use prelude::ll::asm;
 pub use prelude::ll::peripheral;
