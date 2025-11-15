@@ -19,9 +19,12 @@ features = ["defmt", "single-bank", "time-driver-any", "<CHIP>", "memory-x"]
 
 [dependencies]
 
+static_cell = "2.1"
+
 defmt.workspace = true
 embassy-futures = "0.1"
 bitfield-struct = "0.12"
+
 
 defmt-rtt    = { version = "1.0", features = ["disable-blocking-mode"] }
 embassy-sync = { version = "0.7", features = ["defmt"] }
