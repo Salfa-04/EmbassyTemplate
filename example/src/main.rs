@@ -5,7 +5,11 @@ use utils::prelude::*;
 
 mod controller;
 mod system;
-mod tasks;
+
+mod tasks {
+    pub mod blinky;
+    pub mod health;
+}
 
 #[embassy_executor::main]
 async fn entry(s: embassy_executor::Spawner) {
