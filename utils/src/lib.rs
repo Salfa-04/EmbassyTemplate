@@ -15,6 +15,11 @@ pub use prelude::ll::peripheral;
 pub use prelude::time::Timer as T;
 pub use static_cell::*;
 
+/// # Atomic Types Module
+pub mod atomic {
+    pub use ::portable_atomic::*;
+}
+
 /// # Preludes for Easy Imports.
 pub mod prelude {
     pub use ::cortex_m as ll; // Low Level
