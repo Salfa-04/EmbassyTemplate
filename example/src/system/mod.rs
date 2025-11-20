@@ -30,13 +30,11 @@ impl Device {
 }
 
 mod devices;
-mod devids;
 mod heartbeat;
 mod interrupts;
 mod resources;
 mod status;
 
-pub use devids::DevAddr;
 pub use interrupts::Irqs;
 pub use resources::*;
 pub use status::SysMode;
