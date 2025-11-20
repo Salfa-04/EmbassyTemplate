@@ -43,7 +43,7 @@ pub use status::SysMode;
 
 /// # Private Imports
 mod private {
-    use core::sync::atomic;
+    use utils::atomic;
 
     pub use super::heartbeat::HeartBeat;
     pub use super::{Device, WATCH_LIST};
